@@ -7,7 +7,7 @@ function gui_CrossEditor(varargin)
         dbType = varargin{1};
     end
     
-    s = load_XDivaScene(dbType);
+    s = loadXDivaScene(dbType);
     list_s = {};
     for i = 1:numel(s);
         list_s = {list_s{:}, s{i}.name};
