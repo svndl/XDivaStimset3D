@@ -8,8 +8,8 @@ function display = getDisplay(StereoMode)
     
     switch StereoMode
         case 'leftright'
-            vScale = 1;
-            hScale = 0.5;
+            vScale = 2;
+            hScale = 1;
             catDim = 2;
             mirror = 0;            
         case 'topbottom'

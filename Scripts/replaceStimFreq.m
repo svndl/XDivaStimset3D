@@ -1,10 +1,10 @@
 function replaceStimFreq(dbtype)
     mpath = main_setPath;
     dbtype = 'ut';
-    scene_path = fullfile(mpath.results, dbtype);
+    scene_path = fullfile(mpath.results);
     xDivaStimList = dir([scene_path filesep '*.mat']);
     
-    freq = 0.375;
+    freq = 4*0.375;
     
     newTotalFrames = calcXDivaMatlabParadigm(freq);
     framesPerImg = newTotalFrames/4;

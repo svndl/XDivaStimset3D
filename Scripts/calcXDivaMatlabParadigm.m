@@ -1,8 +1,6 @@
 function TotalFrames = calcXDivaMatlabParadigm(freq)
 
-    %freq = 0.5;
-    monitorFrequency = 60;
-    
+    monitorFrequency = 60;    
     desiredCoreDuration = 1;
     
     nCoreBins = 4;

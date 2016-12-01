@@ -188,7 +188,7 @@ function [] = pb_call(varargin)
     rx = drawCross(scene.right, 30, [scene.offset(1), -scene.offset(2)]);
     lx = drawCross(scene.left, 30, [scene.offset(1), scene.offset(2)]);
     
-    d = getDisplay('topbottom');
+    d = getDisplay('leftright');
     shiftH = scene.offset + scene.dH;
     lrx = imresize(lx, [d.v, d.h]);
     rrx = imresize(rx, [d.v, d.h]);
@@ -198,9 +198,9 @@ function [] = pb_call(varargin)
    
     sceneA = cat(2, lA, rA);
     sceneA = sceneA.^(1/2.2);
-    imwrite(sceneA, [path.matimages filesep 'gui_' S.currentScene.name '.jpeg']);
+    imwrite(sceneA, [path.results filesep 'gui_' S.currentScene.name '.jpeg']);
     %write matfiles
-    
+    save([path.matimages filesep S.currentScene.name '.mat'], 'scene');
     set(S.text, 'visible', 'on');
 end
 
@@ -222,8 +222,8 @@ function updateSceneHandles(S)
     %update edit field value
     set(S.edX, 'string', num2str(S.currentScene.offset(2)));
     set(S.edY, 'string', num2str(S.currentScene.offset(1)));
-    set(S.edHX, 'string', num2str(S.currentScene.dH(1)));   
-    set(S.edHY, 'string', num2str(S.currentScene.dH(2)));   
+    set(S.edHX, 'string', num2str(S.currentScene.dH(2)));   
+    set(S.edHY, 'string', num2str(S.currentScene.dH(1)));   
     
     updateCallbacks(S);
 end

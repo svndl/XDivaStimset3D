@@ -14,25 +14,31 @@ function main_generateStimSet()
     ListofVersions = {'S', 'O'};
     DisplaySettings = 'leftright';
     
-    StimFreq = 0.375;
-    previewImagesOnly = 1;    
+    onscreen_time = 4*0.75;
     
-    generateAll(listOfScenes, ListofVersions, DisplaySettings, StimFreq, previewImagesOnly, mpath);  
+    StimFreq = 4*(1/onscreen_time);
+    nBins = 4;
+    previewImagesOnly = 0;  
+    
+    generateAll(listOfScenes, ListofVersions, DisplaySettings, StimFreq, nBins, previewImagesOnly, mpath);  
 end
 
-function generateAll(listOfScenes, ListofVersions, DisplaySettings, StimFreq, previewImagesOnly, mpath)
+function generateAll(listOfScenes, ListofVersions, DisplaySettings, StimFreq, nBins, previewImagesOnly, mpath)
     
     nScenes = numel(listOfScenes);
-    rndScenes = randperm(nScenes);
+    %rndScenes = randperm(nScenes);
+    %rndScenes = listOfScenes;
+    
     i = 1;
-    imageSequence = calcImageSeq2AFC(StimFreq);
+    imageSequence = genImageSequence(StimFreq, nBins);
     roosterName = strcat(mpath.results, filesep, 'ScenesAllCND.txt');
     f = fopen(roosterName, 'w+');
     
     
     while i <= nScenes
                 
-        num = rndScenes(i);
+        %num = rndScenes(i);
+        num = i;
         list_name = strtok(listOfScenes(num).name, '.');        
         disp(['Generating ' list_name]);
         
@@ -41,8 +47,8 @@ function generateAll(listOfScenes, ListofVersions, DisplaySettings, StimFreq, pr
         [sceneS, sceneO, blank] = makeSceneVersions(list_name, ListofVersions, DisplaySettings);
                       
         %% SO, OS trials     
-        writeXDivaStim(mpath.results, blank, sceneS, blank, sceneO, 'SO', i, imageSequence, previewImagesOnly);
-        writeXDivaStim(mpath.results, blank, sceneO, blank, sceneS, 'OS', i, imageSequence, previewImagesOnly);
+        writeXDivaStim(mpath.results, double(blank), sceneS, double(blank), sceneO, 'SO', i, imageSequence, previewImagesOnly);
+        writeXDivaStim(mpath.results, double(blank), sceneO, double(blank), sceneS, 'OS', i, imageSequence, previewImagesOnly);
         i = i + 1;
     end
     fprintf(f, 'Set generated on %s', datestr(clock));   

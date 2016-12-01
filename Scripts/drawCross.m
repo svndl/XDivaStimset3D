@@ -55,7 +55,7 @@ function out = drawCross(image, height, offset)
     
     dummy = repmat(dummy,[1,1,size(image,3)]);
     out = image;
-    out(dummy == 0.5) = 0.75;
+    out(dummy == 0.5) = 0.6;
     out(dummy == 1) = outer;
 end
 
